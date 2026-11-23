@@ -39,12 +39,23 @@ since prototype v1", so log every change from usability tests, peer reviews, and
   course treats placeholder links as missing work.
 - MILESTONE_MAP maps the M3 knowledge, skill, and ability goals to evidence in the prototype.
 
-## [0.3.2] - 2026-11-22 - Hosting on Hugging Face Spaces
-- Added `Dockerfile`, `.dockerignore`, and Space settings in the README header, because Streamlit
-  Community Cloud requires a GitHub account. Runs as user 1000; settings passed as startup flags.
-- Pinned tested versions: streamlit 1.67.0, pandas 3.0.5, altair 6.3.0.
-- Checked by running the same steps as the container (fresh environment, non-root user, same flags):
-  health check 200, every page opens, full transfer and CSV export work.
+## [0.3.3] - 2026-11-22 - Live on Streamlit Community Cloud
+- Published the repository at https://github.com/HooplAwe-prog/bridges-to-flow and deployed
+  https://bridges-to-flow-iop563.streamlit.app/ (Python 3.14.10, the Community Cloud default; pinned requirements; no secrets).
+- Local tests (19 passing) ran on Python 3.13; the live app runs on 3.14.10 (shown in the Streamlit app log).
+- README links filled in and deploy steps updated to the method actually used. Hugging Face was
+  dropped because Docker Spaces now require a paid plan.
+
+## [0.3.2] - 2026-11-22 - Hosting on a free Hugging Face Static Space
+- Added `index.html`, which runs the unchanged Streamlit app in the browser with stlite 1.12.3
+  (Pyodide). Reason: Streamlit Community Cloud needs GitHub, and Hugging Face Docker Spaces now need a
+  paid plan; Static Spaces are free.
+- README header set to `sdk: static`. Removed the Docker files (not usable on the free plan).
+- Pinned tested versions for server runs: streamlit 1.67.0, pandas 3.0.5, altair 6.3.0.
+- Checked: in a test browser, Python started and loaded all eight app files from the page's folder;
+  package download could not be tested offline. SQLite is built into Pyodide. Full in-browser run to
+  be confirmed on the live Space.
+- Effect on privacy: each visitor's data stays in their own browser tab; nothing is sent to a server.
 
 ## [Unreleased] - changes from usability testing and peer review
 <!-- Add one bullet per change: what, evidence (e.g. "3 of 5 testers..."), effect. -->

@@ -1,28 +1,17 @@
----
-title: Bridges to Flow
-emoji: 🌉
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-app_port: 8501
-pinned: false
-short_description: ATS to HRIS handoff prototype (synthetic data, IOP 563)
----
-
 # Bridges to Flow
 
 A working prototype that helps HR and Talent Acquisition move approved applicants from an
 applicant tracking system (ATS) into the HR information system (HRIS) without retyping, while
 a person reviews and approves every transfer.
 
-IOP 563, AI in I-O Psychology · Milestone 3 (Prototype v1) · Version 0.3.2
+IOP 563, AI in I-O Psychology · Milestone 3 (Prototype v1) · Version 0.3.3
 **All data in this app is synthetic.** No real applicants, employees, or organizations.
 
 | | |
 |---|---|
-| Live prototype | Unavailable: not yet deployed. Replace with the verified Streamlit URL after the signed-out check. |
-| Repository | Unavailable: not yet published. Replace with the verified GitHub URL. |
-| Access | Demo mode: choose a role, no passcode or account needed |
+| Live prototype | https://bridges-to-flow-iop563.streamlit.app/ |
+| Repository | https://github.com/HooplAwe-prog/bridges-to-flow |
+| Access | Demo mode: choose a role, no passcode or account needed. Hosted on Streamlit Community Cloud. |
 
 ## The problem (from Milestone 1)
 Large organizations keep applicant data in one system and employee records in another.
@@ -57,30 +46,17 @@ python -m pytest -q           # 19 tests: core logic + UI click-through
 The database (`data/bridges.db`) is created and filled with synthetic data on first run.
 Admin → Data retention → **Reload synthetic demo data** resets it.
 
-## Deploy (Hugging Face Spaces, used for grading)
-The YAML block at the top of this file and the `Dockerfile` configure a Hugging Face Docker Space.
-1. Sign up at huggingface.co, then **New Space** → name `bridges-to-flow` → SDK **Docker** →
-   template **Blank** → hardware **CPU basic (free)** → visibility **Public** → Create.
-2. **Files** tab → **Add file → Upload files** → drag in the contents of this folder → Commit.
-3. Wait for the status to change from *Building* to *Running* (about 3–5 minutes).
-4. Copy the app link (`https://<username>-bridges-to-flow.hf.space`) and the Space link
-   (`https://huggingface.co/spaces/<username>/bridges-to-flow`), check both in a private window,
-   then replace the "Unavailable" labels at the top of this README.
+## Deploy (Streamlit Community Cloud, used for grading)
+1. The code is in the public GitHub repository above. `.streamlit/secrets.toml` is never committed.
+2. At share.streamlit.io: **Create app → Deploy a public app from GitHub**, repository
+   `HooplAwe-prog/bridges-to-flow`, branch `main`, main file `app.py`. The live app runs on Python 3.14.10 (Community Cloud default); local tests used Python 3.13.
+3. No secrets are needed; demo mode is the default. To turn on passcodes later, paste
+   `.streamlit/secrets.toml.example` into *App settings → Secrets* and set `DEMO_MODE = "false"`.
+4. Check the live link in a private/incognito window before submitting.
 
-Free Spaces sleep when unused and wake on the next visit (first load can take a minute). Storage resets
-on restart, so the synthetic demo data reloads. No secrets are needed: demo mode is the default.
-
-## Deploy (Streamlit Community Cloud, alternative)
-1. Push this folder to a public GitHub repo. Confirm `.streamlit/secrets.toml` is **not** in it.
-2. At share.streamlit.io, create an app from the repo with `app.py` as the entry point.
-3. Optional: in *App settings → Secrets*, paste the contents of `.streamlit/secrets.toml.example`.
-   Keep `DEMO_MODE = "true"` for grading so the instructor needs no credentials.
-4. Open the URL in a private/incognito window to confirm it works signed-out, then replace the
-   "Unavailable" labels at the top of this README with the real links. The course treats placeholder
-   links as missing work, so never submit an example URL.
-
-Note: Community Cloud storage resets when the app restarts, so the demo data reloads. That's
-intended for a synthetic prototype.
+Community Cloud apps sleep after a period without visitors; the first visit wakes the app (about a
+minute). Storage resets on restart, so the synthetic demo data reloads, which is intended.
+The `Dockerfile` is an optional container build and is not used by Streamlit Cloud.
 
 ## Project layout
 ```
